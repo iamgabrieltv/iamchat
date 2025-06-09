@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+html {
+	background-color: black;
+	color: rgb(5, 184, 5);
+}
+
+.btn {
+	margin: 0.25rem;
+	width: fit-content;
+	height: fit-content;
+	cursor: pointer;
+	@apply rounded-sm border px-1 transition-all hover:border-green-900;
+}
+
+.link {
+	@apply cursor-pointer transition-all hover:text-green-900;
+	text-decoration-color: rgb(5, 184, 5);
+}
+
+.underlined {
+	@apply underline decoration-double underline-offset-4;
+}
