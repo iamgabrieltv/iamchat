@@ -1,7 +1,8 @@
 import type { TypedPocketBase, UsersRecord } from '$lib/pocketbase-types';
 import PocketBase from 'pocketbase';
+import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
 
-export const pb = new PocketBase('http://127.0.0.1:8090') as TypedPocketBase;
+export const pb = new PocketBase(PUBLIC_POCKETBASE_URL) as TypedPocketBase;
 
 export let currentUser = $state({
 	user: pb.authStore.record as unknown as UsersRecord
