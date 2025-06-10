@@ -9,6 +9,12 @@
 	let messages: ExpandedMessagesResponse = $state([]);
 	let loading = $state(true);
 	let messageContainer: HTMLDivElement | undefined = $state();
+	$effect(() => {
+		messageContainer?.scrollTo({
+			top: messageContainer.scrollHeight,
+			behavior: 'instant'
+		});
+	});
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 
@@ -35,13 +41,6 @@
 				filter: `conversation.id = "${conversation.id}"`
 			}
 		);
-
-		$effect(() => {
-			messageContainer?.scrollTo({
-				top: messageContainer.scrollHeight,
-				behavior: 'instant'
-			});
-		});
 	});
 
 	onDestroy(() => {
