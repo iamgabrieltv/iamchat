@@ -10,14 +10,6 @@
 	let loading = $state(true);
 	let messageContainer: HTMLDivElement | undefined = $state();
 
-	$effect(() => {
-		messageContainer?.scrollTo({
-			top: messageContainer.scrollHeight,
-			behavior: 'instant'
-		});
-		console.log('Scrolled to bottom');
-	});
-
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 
 	onMount(async () => {
@@ -43,6 +35,13 @@
 				filter: `conversation.id = "${conversation.id}"`
 			}
 		);
+
+		$effect(() => {
+			messageContainer?.scrollTo({
+				top: messageContainer.scrollHeight,
+				behavior: 'instant'
+			});
+		});
 	});
 
 	onDestroy(() => {
