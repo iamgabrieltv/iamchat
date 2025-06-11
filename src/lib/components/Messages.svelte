@@ -8,19 +8,12 @@
 
 	let messages: ExpandedMessagesResponse = $state([]);
 	let loading = $state(true);
-	let messageContainer: HTMLDivElement | undefined = $state();
-	$effect(() => {
-		messageContainer?.scrollTo({
-			top: messageContainer.scrollHeight,
-			behavior: 'instant'
-		});
-	});
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 
 	onMount(async () => {
 		messages = await pb.collection('messages').getFullList({
-			sort: '+created',
+			sort: '-created',
 			expand: 'user',
 			filter: `conversation.id = "${conversation.id}"`
 		});
@@ -51,12 +44,12 @@
 {#if loading}
 	<p>Loading...</p>
 {:else}
-	<div class="max-h-11/12 overflow-auto" bind:this={messageContainer}>
+	<div class="flex max-h-11/12 flex-col-reverse overflow-auto">
 		{#each messages as message}
-			<p>{message.expand.user.name}: {message.text}</p>
 			{#if message.files.length > 0}
 				<File record={message} />
 			{/if}
+			<p>{message.expand.user.name}: {message.text}</p>
 		{/each}
 	</div>
 {/if}
