@@ -24,7 +24,7 @@
 			'*',
 			async (e) => {
 				if (e.action === 'create') {
-					messages.push(e.record as ExpandedMessagesResponse[0]);
+					messages = [e.record as ExpandedMessagesResponse[0], ...messages];
 				}
 				if (e.action === 'delete') {
 					messages = messages.filter((msg) => msg.id !== e.record.id);
