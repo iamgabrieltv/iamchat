@@ -1,10 +1,15 @@
 <script lang="ts">
-	import type { ConversationsResponse, MessagesResponse } from '$lib/pocketbase-types';
+	import type {
+		ConversationsResponse,
+		MessagesResponse,
+		UsersResponse
+	} from '$lib/pocketbase-types';
 	import { pb } from '$lib/pocketbase.svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import File from './File.svelte';
+	import Avatar from './Avatar.svelte';
 
-	type ExpandedMessagesResponse = MessagesResponse<{ user: { name: string } }>[];
+	type ExpandedMessagesResponse = MessagesResponse<{ user: UsersResponse }>[];
 
 	let messages: ExpandedMessagesResponse = $state([]);
 	let loading = $state(true);
@@ -50,7 +55,10 @@
 			{#if message.files.length > 0}
 				<File record={message} />
 			{/if}
-			<p>{message.expand.user.name}: {message.text}</p>
+			<div class="flex flex-row items-center gap-1 p-1">
+				<Avatar record={message.expand.user} class="h-8 w-8" />
+				<p>{message.expand.user.name}: {message.text}</p>
+			</div>
 		{/each}
 	</div>
 {/if}
