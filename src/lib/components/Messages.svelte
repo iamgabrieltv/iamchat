@@ -12,11 +12,12 @@
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 
 	onMount(async () => {
-		messages = await pb.collection('messages').getFullList({
+		const result = await pb.collection('messages').getList(1, 100, {
 			sort: '-created',
 			expand: 'user',
 			filter: `conversation.id = "${conversation.id}"`
 		});
+		messages = result.items as ExpandedMessagesResponse;
 		loading = false;
 
 		pb.collection('messages').subscribe(
