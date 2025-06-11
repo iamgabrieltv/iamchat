@@ -45,7 +45,7 @@
 {#if loading}
 	<p>Loading...</p>
 {:else}
-	<div class="flex max-h-11/12 flex-col-reverse overflow-auto">
+	<div class="flex h-full flex-col-reverse overflow-auto">
 		{#each messages as message}
 			{#if message.files.length > 0}
 				<File record={message} />

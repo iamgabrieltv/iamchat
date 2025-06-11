@@ -2,24 +2,32 @@
 	import Conversations from '$lib/components/Conversations.svelte';
 	import MessageForm from '$lib/components/MessageForm.svelte';
 	import Messages from '$lib/components/Messages.svelte';
+	import Members from '$lib/components/Members.svelte';
 	import type { ConversationsResponse } from '$lib/pocketbase-types';
 
 	let selectedConversation: ConversationsResponse | null | undefined = $state();
 </script>
 
 <div class="flex h-full w-full flex-row border">
-	<Conversations bind:selectedConversation />
-	<div class="w-11/12">
-		{#if selectedConversation}
-			<div class="w-full border-b">
-				<p class="py-1 pl-2">{selectedConversation.name}</p>
-			</div>
-			{#key selectedConversation}
-				<div class="h-full pl-2">
+	<aside class="flex max-w-xs min-w-fit flex-col overflow-y-auto border-r">
+		<Conversations bind:selectedConversation />
+	</aside>
+	{#if selectedConversation}
+		{#key selectedConversation}
+			<section class="flex w-full flex-col">
+				<header class="h-fit w-full border-b px-2 py-1">
+					<p>{selectedConversation.name}</p>
+				</header>
+				<div class="overflow-auto px-2">
 					<Messages conversation={selectedConversation} />
+				</div>
+				<div>
 					<MessageForm conversation={selectedConversation} />
 				</div>
-			{/key}
-		{/if}
-	</div>
+			</section>
+			<aside class="max-w-xs min-w-[100px] justify-self-end overflow-y-auto border-l px-2">
+				<Members conversation={selectedConversation} />
+			</aside>
+		{/key}
+	{/if}
 </div>
