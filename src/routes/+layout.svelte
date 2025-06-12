@@ -6,7 +6,7 @@
 	let { children } = $props();
 </script>
 
-<main class="h-screen overflow-hidden p-4">
+<main class="h-screen w-screen overflow-hidden p-4">
 	{#if currentUser.user}
 		{@render children()}
 	{:else}

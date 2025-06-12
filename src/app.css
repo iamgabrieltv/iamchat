@@ -21,3 +21,7 @@ html {
 .underlined {
 	@apply underline decoration-double underline-offset-4;
 }
+
+label {
+	@apply text-xs text-green-900;
+}
