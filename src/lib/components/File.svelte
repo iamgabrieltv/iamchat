@@ -12,6 +12,7 @@
 			src={pb.files.getURL(record, file)}
 			alt={file}
 			class="my-2 h-auto max-w-44 rounded-md object-contain"
+			loading="lazy"
 		/>
 	{:else}
 		<div class="flex w-fit flex-row gap-2 rounded-md border px-1">
