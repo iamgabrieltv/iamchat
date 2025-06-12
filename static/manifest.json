@@ -14,5 +14,6 @@
 	],
 	"start_url": "/",
 	"display": "standalone",
-	"prefer_related_applications": false
+	"prefer_related_applications": false,
+	"background_color": "black"
 }
