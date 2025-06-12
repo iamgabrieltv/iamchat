@@ -8,7 +8,11 @@
 
 {#each record.files! as file}
 	{#if isImage.test(file)}
-		<img src={pb.files.getURL(record, file)} alt={file} class="my-2 max-h-96 max-w-96 rounded-md" />
+		<img
+			src={pb.files.getURL(record, file)}
+			alt={file}
+			class="my-2 h-auto max-w-44 rounded-md object-contain"
+		/>
 	{:else}
 		<div class="flex w-fit flex-row gap-2 rounded-md border px-1">
 			<p>{file}</p>
