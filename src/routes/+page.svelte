@@ -14,14 +14,14 @@
 	</aside>
 	{#if selectedConversation}
 		{#key selectedConversation}
-			<section class="flex w-full flex-col px-2">
-				<header class="h-fit w-full border-b py-1">
+			<section class="flex w-full flex-col">
+				<header class="h-fit w-full border-b px-2 py-1">
 					<p>{selectedConversation.name}</p>
 				</header>
-				<div class="overflow-auto">
+				<div class="overflow-auto px-2">
 					<Messages conversation={selectedConversation} />
 				</div>
-				<div>
+				<div class="px-2">
 					<MessageForm conversation={selectedConversation} />
 				</div>
 			</section>
