@@ -11,14 +11,16 @@
 </script>
 
 <div class="flex h-full w-full flex-row border">
-	<aside class="flex max-w-xs min-w-fit flex-col overflow-y-auto border-r">
+	<aside class="flex max-w-xs min-w-fit flex-col overflow-y-auto border-r p-1">
 		<Conversations bind:selectedConversation />
 		<div class="flex flex-1 flex-col justify-end">
-			<div class="flex flex-row items-center gap-2">
+			<div class="flex flex-row items-center">
 				<button class="btn" onclick={signOut}>Sign Out</button>
-				<a href="/settings" aria-label="Settings" class="link flex items-center text-2xl"
-					><iconify-icon icon="ri:settings-line"></iconify-icon></a
-				>
+				<span class="flex flex-1 flex-row justify-end">
+					<a href="/settings" aria-label="Settings" class="link flex items-center text-2xl"
+						><iconify-icon icon="ri:settings-line"></iconify-icon></a
+					>
+				</span>
 			</div>
 		</div>
 	</aside>
