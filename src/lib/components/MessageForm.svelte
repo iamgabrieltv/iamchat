@@ -21,7 +21,7 @@
 	}
 </script>
 
-<form bind:this={form} onsubmit={sendMessage}>
+<form bind:this={form} onsubmit={sendMessage} class="flex flex-row items-center gap-1">
 	<input type="text" placeholder="Say something..." bind:value={message} />
 	<input type="file" multiple bind:files />
 	<button type="submit" class="btn">Send</button>
