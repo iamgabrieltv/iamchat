@@ -12,5 +12,5 @@
 <form>
 	<input placeholder="E-Mail" type="email" bind:value={email} />
 	<input placeholder="Password" type="password" bind:value={password} />
-	<button type="submit" onclick={login}>Login</button>
+	<button type="submit" class="btn" onclick={login}>Login</button>
 </form>
