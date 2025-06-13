@@ -3,6 +3,6 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	return {
-		commitSha: CF_PAGES_COMMIT_SHA
+		commitSha: CF_PAGES_COMMIT_SHA.slice(0, 7)
 	};
 };
