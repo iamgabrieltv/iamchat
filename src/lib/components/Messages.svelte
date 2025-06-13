@@ -16,15 +16,7 @@
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 
-	onMount(async () => {
-		const result = await pb.collection('messages').getList(1, 100, {
-			sort: '-created',
-			expand: 'user',
-			filter: `conversation.id = "${conversation.id}"`
-		});
-		messages = result.items as ExpandedMessagesResponse;
-		loading = false;
-
+	function subscribe() {
 		pb.collection('messages').subscribe(
 			'*',
 			async (e) => {
@@ -40,6 +32,32 @@
 				filter: `conversation.id = "${conversation.id}"`
 			}
 		);
+	}
+
+	async function fetchMessages() {
+		const result = await pb.collection('messages').getList(1, 100, {
+			sort: '-created',
+			expand: 'user',
+			filter: `conversation.id = "${conversation.id}"`
+		});
+		messages = result.items as ExpandedMessagesResponse;
+		loading = false;
+	}
+
+	onMount(async () => {
+		fetchMessages();
+		subscribe();
+
+		if (/iPad|iPhone|Android/.test(navigator.userAgent)) {
+			document.addEventListener('visibilitychange', function () {
+				if (document.visibilityState === 'hidden') {
+					pb.collection('messages').unsubscribe();
+				} else if (document.visibilityState === 'visible') {
+					fetchMessages();
+					subscribe();
+				}
+			});
+		}
 	});
 
 	onDestroy(() => {
