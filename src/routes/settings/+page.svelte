@@ -3,12 +3,15 @@
 	import { pb, currentUser, signOut } from '$lib/pocketbase.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import 'iconify-icon';
+	import type { PageProps } from './$types';
 
 	let name: string = $state('');
 	let file: FileList | undefined = $state();
 	let oldPassword: string | undefined = $state();
 	let password: string | undefined = $state();
 	let confirmPassword: string | undefined = $state();
+
+	let { data }: PageProps = $props();
 
 	onMount(async () => {
 		name = currentUser.user.name;
@@ -87,3 +90,4 @@
 	</div>
 	<button type="submit" class="btn">Save changes</button>
 </form>
+<p>Version: {data.commitSha}</p>
