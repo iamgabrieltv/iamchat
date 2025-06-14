@@ -14,6 +14,7 @@
 
 	let messages: ExpandedMessagesResponse = $state([]);
 	let loading = $state(true);
+	const isMobile = /iPad|iPhone|Android/.test(navigator.userAgent);
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 
@@ -53,13 +54,15 @@
 		fetchMessages();
 		subscribe();
 
-		if (/iPad|iPhone|Android/.test(navigator.userAgent)) {
+		if (isMobile) {
 			document.addEventListener('visibilitychange', function () {
 				if (document.visibilityState === 'hidden') {
 					pb.collection('messages').unsubscribe();
+					console.log('unsubscribed');
 				} else if (document.visibilityState === 'visible') {
 					fetchMessages();
 					subscribe();
+					console.log('resubscribed');
 				}
 			});
 		}
@@ -78,10 +81,19 @@
 			{#if message.files.length > 0}
 				<File record={message} />
 			{/if}
-			<div class="group flex flex-row items-center gap-1 p-1 hover:bg-[#111111]">
+			<div
+				tabindex="-1"
+				class="group flex flex-row items-center gap-1 p-1 hover:bg-[#111111] {isMobile
+					? 'focus:bg-[#111111]'
+					: ''}"
+			>
 				<Avatar record={message.expand.user} class="h-8 w-8" />
 				<p>{message.expand.user.name}: {message.text}</p>
-				<div class="flex scale-0 flex-row items-center gap-1 group-hover:scale-100">
+				<div
+					class="flex scale-0 flex-row items-center gap-1 group-hover:scale-100 {isMobile
+						? 'group-focus:scale-100'
+						: ''}"
+				>
 					<p class="label">{new Date(message.created).toLocaleString()}</p>
 					<button aria-label="delete" class="link" onclick={() => deleteMessage(message.id)}
 						><iconify-icon Icon="material-symbols:delete"></iconify-icon></button
