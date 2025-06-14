@@ -91,3 +91,4 @@
 	<button type="submit" class="btn">Save changes</button>
 </form>
 <p>Version: {data.commitSha}</p>
+<p>isMobile: {navigator.maxTouchPoints > 2}</p>
