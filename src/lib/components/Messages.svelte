@@ -14,7 +14,7 @@
 
 	let messages: ExpandedMessagesResponse = $state([]);
 	let loading = $state(true);
-	const isMobile = /iPad|iPhone|Android/.test(navigator.userAgent);
+	const isMobile = navigator.maxTouchPoints > 0;
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 
@@ -82,13 +82,13 @@
 				<File record={message} />
 			{/if}
 			<div
-				tabindex="0"
+				tabindex="-1"
 				class="group flex flex-row items-center gap-1 p-1 hover:bg-[#111111] {isMobile
 					? 'focus:bg-[#111111]'
 					: ''}"
 			>
 				<Avatar record={message.expand.user} class="h-8 w-8" />
-				<p>{message.expand.user.name}: {message.text}</p>
+				<p>{message.expand.user.name}: {message.text} {isMobile}</p>
 				<div
 					class="flex scale-0 flex-row items-center gap-1 group-hover:scale-100 {isMobile
 						? 'group-focus:scale-100'
