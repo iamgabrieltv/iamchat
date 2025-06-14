@@ -73,9 +73,12 @@
 			{#if message.files.length > 0}
 				<File record={message} />
 			{/if}
-			<div class="flex flex-row items-center gap-1 p-1">
+			<div class="group flex flex-row items-center gap-1 p-1">
 				<Avatar record={message.expand.user} class="h-8 w-8" />
 				<p>{message.expand.user.name}: {message.text}</p>
+				<p class="label scale-0 group-hover:scale-100">
+					{new Date(message.created).toLocaleString()}
+				</p>
 			</div>
 		{/each}
 	</div>

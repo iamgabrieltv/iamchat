@@ -59,18 +59,18 @@
 
 <form class="flex w-1/6 flex-col gap-4" onsubmit={saveChanges}>
 	<div class="flex flex-col">
-		<label for="name">Name</label>
+		<label for="name" class="label">Name</label>
 		<input id="name" type="text" placeholder="Name" class="border-b" bind:value={name} />
 	</div>
 
 	<div>
-		<label for="avatar">Avatar</label>
+		<label for="avatar" class="label">Avatar</label>
 		<input id="avatar" type="file" bind:files={file} />
 		<Avatar record={currentUser.user} class="h-auto w-10" />
 	</div>
 
 	<div>
-		<label for="password">Change Password</label>
+		<label for="password" class="label">Change Password</label>
 		<div class="flex flex-row gap-2">
 			<input type="password" placeholder="Old Password" class="border-b" bind:value={oldPassword} />
 			<input
