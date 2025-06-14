@@ -82,7 +82,7 @@
 				<File record={message} />
 			{/if}
 			<div
-				tabindex="-1"
+				tabindex="0"
 				class="group flex flex-row items-center gap-1 p-1 hover:bg-[#111111] {isMobile
 					? 'focus:bg-[#111111]'
 					: ''}"
