@@ -88,7 +88,7 @@
 					: ''}"
 			>
 				<Avatar record={message.expand.user} class="h-8 w-8" />
-				<p>{message.expand.user.name}: {message.text} {isMobile}</p>
+				<p>{message.expand.user.name}: {message.text}</p>
 				<div
 					class="flex scale-0 flex-row items-center gap-1 group-hover:scale-100 {isMobile
 						? 'group-focus:scale-100'
