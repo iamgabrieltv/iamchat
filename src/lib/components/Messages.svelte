@@ -8,6 +8,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import File from './File.svelte';
 	import Avatar from './Avatar.svelte';
+	import 'iconify-icon';
 
 	type ExpandedMessagesResponse = MessagesResponse<{ user: UsersResponse }>[];
 
@@ -44,6 +45,10 @@
 		loading = false;
 	}
 
+	async function deleteMessage(id: string) {
+		await pb.collection('messages').delete(id);
+	}
+
 	onMount(async () => {
 		fetchMessages();
 		subscribe();
@@ -73,12 +78,15 @@
 			{#if message.files.length > 0}
 				<File record={message} />
 			{/if}
-			<div class="group flex flex-row items-center gap-1 p-1">
+			<div class="group flex flex-row items-center gap-1 p-1 hover:bg-[#111111]">
 				<Avatar record={message.expand.user} class="h-8 w-8" />
 				<p>{message.expand.user.name}: {message.text}</p>
-				<p class="label scale-0 group-hover:scale-100">
-					{new Date(message.created).toLocaleString()}
-				</p>
+				<div class="flex scale-0 flex-row items-center gap-1 group-hover:scale-100">
+					<p class="label">{new Date(message.created).toLocaleString()}</p>
+					<button aria-label="delete" class="link" onclick={() => deleteMessage(message.id)}
+						><iconify-icon Icon="material-symbols:delete"></iconify-icon></button
+					>
+				</div>
 			</div>
 		{/each}
 	</div>
