@@ -87,7 +87,7 @@
 					? 'focus:bg-[#111111]'
 					: ''}"
 			>
-				{#if messages[i + 1]?.expand.user.id !== message.expand.user.id}
+				{#if messages[i + 1]?.expand.user.id !== message.expand.user.id || new Date(messages[i + 1]?.created).getTime() + 10 * 60000 < new Date(message.created).getTime()}
 					<Avatar record={message.expand.user} class="mr-1 h-8 w-8" />
 					<div class="flex flex-col items-start">
 						<p class="font-bold">{message.expand.user.name}</p>
