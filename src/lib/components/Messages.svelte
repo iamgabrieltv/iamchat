@@ -90,7 +90,15 @@
 				{#if messages[i + 1]?.expand.user.id !== message.expand.user.id || new Date(messages[i + 1]?.created).getTime() + 10 * 60000 < new Date(message.created).getTime()}
 					<Avatar record={message.expand.user} class="mr-1 h-8 w-8" />
 					<div class="flex flex-col items-start">
-						<p class="font-bold">{message.expand.user.name}</p>
+						<p class="font-bold">
+							{message.expand.user.name}
+							<span class="label font-normal"
+								>{new Date(message.created).toLocaleTimeString([], {
+									hour: '2-digit',
+									minute: '2-digit'
+								})}</span
+							>
+						</p>
 						<p>{message.text}</p>
 					</div>
 				{:else}
