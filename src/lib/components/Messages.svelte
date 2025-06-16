@@ -77,18 +77,25 @@
 	<p>Loading...</p>
 {:else}
 	<div class="flex h-full flex-col-reverse overflow-auto">
-		{#each messages as message}
+		{#each messages as message, i}
 			{#if message.files.length > 0}
 				<File record={message} />
 			{/if}
 			<div
 				tabindex="-1"
-				class="group flex flex-row items-center gap-1 p-1 hover:bg-[#111111] {isMobile
+				class="group flex flex-row items-center gap-0 px-1 hover:bg-[#111111] {isMobile
 					? 'focus:bg-[#111111]'
 					: ''}"
 			>
-				<Avatar record={message.expand.user} class="h-8 w-8" />
-				<p>{message.expand.user.name}: {message.text}</p>
+				{#if messages[i + 1]?.expand.user.id !== message.expand.user.id}
+					<Avatar record={message.expand.user} class="mr-1 h-8 w-8" />
+					<div class="flex flex-col items-start">
+						<p class="font-bold">{message.expand.user.name}</p>
+						<p>{message.text}</p>
+					</div>
+				{:else}
+					<p class="pl-9">{message.text}</p>
+				{/if}
 				<div
 					class="flex scale-0 flex-row items-center gap-1 group-hover:scale-100 {isMobile
 						? 'group-focus:scale-100'
