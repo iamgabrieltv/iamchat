@@ -2,7 +2,7 @@
 	import type { MessagesRecord } from '$lib/pocketbase-types';
 	import { pb } from '$lib/pocketbase.svelte';
 
-	let { record }: { record: MessagesRecord } = $props();
+	let { record, class: classes }: { record: MessagesRecord; class?: string } = $props();
 	const isImage = /[\/.](gif|jpg|jpeg|tiff|png)$/i;
 </script>
 
@@ -11,11 +11,11 @@
 		<img
 			src={pb.files.getURL(record, file)}
 			alt={file}
-			class="my-2 h-auto max-w-44 rounded-md object-contain"
+			class="my-2 h-auto max-w-44 rounded-md object-contain {classes}"
 			loading="lazy"
 		/>
 	{:else}
-		<div class="flex w-fit flex-row gap-2 rounded-md border px-1">
+		<div class="flex w-fit flex-row gap-2 rounded-md border px-1 {classes}">
 			<p>{file}</p>
 			<a href={pb.files.getURL(record, file)}>Download</a>
 		</div>

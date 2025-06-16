@@ -79,7 +79,7 @@
 	<div class="flex h-full flex-col-reverse overflow-auto">
 		{#each messages as message, i}
 			{#if message.files.length > 0}
-				<File record={message} />
+				<File record={message} class="ml-9" />
 			{/if}
 			<div
 				tabindex="-1"
