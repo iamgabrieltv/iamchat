@@ -52,7 +52,7 @@
 	<input
 		type="text"
 		placeholder="Say something..."
-		class="border-b"
+		class="border-b focus:outline-0"
 		bind:value={message}
 		bind:this={input}
 	/>
