@@ -2,12 +2,12 @@
 	import type { ConversationsResponse } from '$lib/pocketbase-types';
 	import { currentUser, pb } from '$lib/pocketbase.svelte';
 	import imageCompression from 'browser-image-compression';
-	import File from './File.svelte';
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 	let message = $state('');
 	let files: FileList | undefined = $state();
 	let form: HTMLFormElement | undefined = $state();
+	let input: HTMLInputElement | undefined = $state();
 
 	async function filesHandler() {
 		if (!files || files.length === 0) return;
@@ -43,12 +43,19 @@
 			};
 			await pb.collection('messages').create(data);
 			form!.reset();
+			input!.focus();
 		}
 	}
 </script>
 
 <form bind:this={form} onsubmit={sendMessage} class="flex flex-row items-center gap-1">
-	<input type="text" placeholder="Say something..." class="border-b" bind:value={message} />
+	<input
+		type="text"
+		placeholder="Say something..."
+		class="border-b"
+		bind:value={message}
+		bind:this={input}
+	/>
 	<input type="file" multiple bind:files />
-	<button type="submit" class="btn">Send</button>
+	<button tabindex="-1" type="submit" class="btn">Send</button>
 </form>
