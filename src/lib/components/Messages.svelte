@@ -4,7 +4,7 @@
 		MessagesResponse,
 		UsersResponse
 	} from '$lib/pocketbase-types';
-	import { pb } from '$lib/pocketbase.svelte';
+	import { currentUser, pb } from '$lib/pocketbase.svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import File from './File.svelte';
 	import Avatar from './Avatar.svelte';
@@ -110,9 +110,11 @@
 						: ''}"
 				>
 					<p class="label">{new Date(message.created).toLocaleString()}</p>
-					<button aria-label="delete" class="link" onclick={() => deleteMessage(message.id)}
-						><iconify-icon Icon="material-symbols:delete"></iconify-icon></button
-					>
+					{#if message.expand.user.id === currentUser.user.id}
+						<button aria-label="delete" class="link" onclick={() => deleteMessage(message.id)}
+							><iconify-icon Icon="material-symbols:delete"></iconify-icon></button
+						>
+					{/if}
 				</div>
 			</div>
 		{/each}
