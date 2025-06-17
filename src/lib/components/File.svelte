@@ -11,7 +11,7 @@
 		<img
 			src={pb.files.getURL(record, file)}
 			alt={file}
-			class="my-2 h-auto max-w-44 rounded-md object-contain {classes}"
+			class="my-2 max-h-50 w-auto rounded-md object-contain {classes}"
 			loading="lazy"
 		/>
 	{:else}

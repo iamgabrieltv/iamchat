@@ -76,14 +76,14 @@
 {#if loading}
 	<p>Loading...</p>
 {:else}
-	<div class="flex h-full flex-col-reverse overflow-auto">
+	<div class="flex h-full flex-col-reverse items-start overflow-auto">
 		{#each messages as message, i}
 			{#if message.files.length > 0}
 				<File record={message} class="ml-9" />
 			{/if}
 			<div
 				tabindex="-1"
-				class="group flex flex-row items-center gap-0 px-1 hover:bg-[#111111] {isMobile
+				class="group flex w-full flex-row items-center gap-0 px-1 hover:bg-[#111111] {isMobile
 					? 'focus:bg-[#111111]'
 					: ''}"
 			>
