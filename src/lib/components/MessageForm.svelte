@@ -1,11 +1,37 @@
 <script lang="ts">
 	import type { ConversationsResponse } from '$lib/pocketbase-types';
 	import { currentUser, pb } from '$lib/pocketbase.svelte';
+	import imageCompression from 'browser-image-compression';
+	import File from './File.svelte';
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
 	let message = $state('');
 	let files: FileList | undefined = $state();
 	let form: HTMLFormElement | undefined = $state();
+
+	async function filesHandler() {
+		if (!files || files.length === 0) return;
+		let fileArray = Array.from(files);
+		let compressedFiles = await Promise.all(
+			fileArray.map(async (file) => {
+				if (file.type.startsWith('image/')) {
+					const options = {
+						maxSizeMB: 2,
+						useWebWorker: true
+					};
+					try {
+						return await imageCompression(file, options);
+					} catch (error) {
+						console.error('Error compressing image:', error);
+						return file;
+					}
+				} else {
+					return file;
+				}
+			})
+		);
+		return compressedFiles;
+	}
 
 	async function sendMessage() {
 		if (message.trim().length > 0) {
@@ -13,7 +39,7 @@
 				user: currentUser.user.id,
 				conversation: conversation.id,
 				text: message,
-				files: files ? Array.from(files) : undefined
+				files: files ? await filesHandler() : undefined
 			};
 			await pb.collection('messages').create(data);
 			form!.reset();
