@@ -14,6 +14,7 @@
 
 	let messages: ExpandedMessagesResponse = $state([]);
 	let loading = $state(true);
+	let index = 1;
 	const isMobile = navigator.maxTouchPoints > 2;
 
 	let { conversation }: { conversation: ConversationsResponse } = $props();
@@ -46,6 +47,20 @@
 		loading = false;
 	}
 
+	async function addMessages() {
+		if (index === -1) return;
+		const result = await pb.collection('messages').getList(index, 100, {
+			sort: '-created',
+			expand: 'user',
+			filter: `conversation.id = "${conversation.id}"`
+		});
+		if (result.items.length > 0) {
+			messages = [...messages, ...(result.items as ExpandedMessagesResponse)];
+		} else {
+			index = -1;
+		}
+	}
+
 	async function deleteMessage(id: string) {
 		await pb.collection('messages').delete(id);
 	}
@@ -71,12 +86,27 @@
 	onDestroy(() => {
 		pb.collection('messages').unsubscribe();
 	});
+
+	let messageContainer: HTMLDivElement | undefined = $state();
+	function handleScroll() {
+		if (
+			Math.abs(messageContainer!.scrollTop) + messageContainer!.clientHeight ===
+			messageContainer!.scrollHeight
+		) {
+			index++;
+			addMessages();
+		}
+	}
 </script>
 
 {#if loading}
 	<p>Loading...</p>
 {:else}
-	<div class="flex h-full flex-col-reverse items-start overflow-auto">
+	<div
+		class="flex h-full flex-col-reverse items-start overflow-auto"
+		bind:this={messageContainer}
+		onscroll={handleScroll}
+	>
 		{#each messages as message, i}
 			{#if message.files.length > 0}
 				<File record={message} class="ml-9" />
