@@ -16,5 +16,5 @@
 	"display": "standalone",
 	"prefer_related_applications": false,
 	"background_color": "black",
-	"theme_color": "rgb(5, 184, 5)"
+	"theme_color": "black"
 }
