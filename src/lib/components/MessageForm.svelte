@@ -14,10 +14,15 @@
 		let fileArray = Array.from(files);
 		let compressedFiles = await Promise.all(
 			fileArray.map(async (file) => {
-				if (file.type.startsWith('image/')) {
+				if (
+					file.type.startsWith('image/') &&
+					file.type !== 'image/gif' &&
+					message !== '/lossless'
+				) {
 					const options = {
 						maxSizeMB: 2,
-						useWebWorker: true
+						useWebWorker: false,
+						fileType: 'image/webp'
 					};
 					try {
 						return await imageCompression(file, options);
