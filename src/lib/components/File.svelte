@@ -3,7 +3,7 @@
 	import { pb } from '$lib/pocketbase.svelte';
 
 	let { record, class: classes }: { record: MessagesRecord; class?: string } = $props();
-	const isImage = /[\/.](gif|jpg|jpeg|tiff|png)$/i;
+	const isImage = /[\/.](gif|jpg|jpeg|tiff|png|webp)$/i;
 </script>
 
 {#each record.files! as file}
