@@ -21,7 +21,7 @@
 				) {
 					const options = {
 						maxSizeMB: 2,
-						useWebWorker: false,
+						useWebWorker: true,
 						fileType: 'image/webp'
 					};
 					try {
