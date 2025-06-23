@@ -54,7 +54,7 @@
 			expand: 'user',
 			filter: `conversation.id = "${conversation.id}"`
 		});
-		if (result.items !== messages && !result.items) {
+		if (result.items !== messages && result.items) {
 			messages = [...messages, ...(result.items as ExpandedMessagesResponse)];
 		} else {
 			index = -1;
