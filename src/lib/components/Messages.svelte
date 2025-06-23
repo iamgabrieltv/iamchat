@@ -38,6 +38,7 @@
 	}
 
 	async function fetchMessages() {
+		index = 1;
 		const result = await pb.collection('messages').getList(1, 100, {
 			sort: '-created',
 			expand: 'user',
