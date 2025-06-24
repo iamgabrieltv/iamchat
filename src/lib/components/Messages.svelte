@@ -8,6 +8,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import File from './File.svelte';
 	import Avatar from './Avatar.svelte';
+	import Divider from './Divider.svelte';
 	import 'iconify-icon';
 
 	type ExpandedMessagesResponse = MessagesResponse<{ user: UsersResponse }>[];
@@ -98,6 +99,13 @@
 			addMessages();
 		}
 	}
+
+	function oneDayApart(dateOne: Date, dateTwo: Date): boolean {
+		if (dateOne.getUTCFullYear() < dateTwo.getUTCFullYear()) return true;
+		if (dateOne.getUTCMonth() < dateTwo.getUTCMonth()) return true;
+		if (dateOne.getUTCDate() < dateTwo.getUTCDate()) return true;
+		return false;
+	}
 </script>
 
 {#if loading}
@@ -148,6 +156,15 @@
 					{/if}
 				</div>
 			</div>
+			{#if oneDayApart(new Date(messages[i + 1]?.created), new Date(message.created))}
+				<div class="flex w-full flex-row items-center">
+					<Divider />
+					<p class="mx-2">
+						{new Date(message.created).toLocaleDateString()}
+					</p>
+					<Divider />
+				</div>
+			{/if}
 		{/each}
 	</div>
 {/if}

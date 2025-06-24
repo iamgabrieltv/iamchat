@@ -1,8 +1,12 @@
 @import 'tailwindcss';
 
+:root {
+	--primary: rgb(5, 184, 5);
+}
+
 html {
 	background-color: black;
-	color: rgb(5, 184, 5);
+	color: var(--primary);
 }
 
 .btn {
@@ -15,7 +19,7 @@ html {
 
 .link {
 	@apply cursor-pointer transition-all hover:text-green-900;
-	text-decoration-color: rgb(5, 184, 5);
+	text-decoration-color: var(--primary);
 }
 
 .underlined {
