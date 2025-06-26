@@ -138,7 +138,7 @@
 								})}</span
 							>
 						</p>
-						<p>{message.text}</p>
+						<p class="text-pretty">{message.text}</p>
 					</div>
 				{:else}
 					<p class="pl-9">{message.text}</p>
